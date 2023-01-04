@@ -1,0 +1,118 @@
+[versions]
+kotlin = "1.7.20"
+kotlinx-serialization = "1.4.1"
+kotlinx-coroutines = "1.6.4"
+junit-jupiter = "5.9.1"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+shadow = { id = "com.github.johnrengelman.shadow", version = "7.1.2" }
+
+#ksp = { id = "com.google.devtools.ksp", version = "1.7.20-1.0.8" }
+
+axion-release = { id = "pl.allegro.tech.build.axion-release", version = "1.14.3" }
+
+dokka = { id = "org.jetbrains.dokka", version.ref = "kotlin" }
+
+
+[libraries]
+
+# Kotlin stdlib
+## Kotlin standard library
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+kotlin-stdlib-jdk7 = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk7", version.ref = "kotlin" }
+kotlin-stdlib-jdk8 = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+
+kotlin-test-base = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
+
+# Kotlinx Serialization
+## Kotlin multiplatform / multi-format serialization
+kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+#kotlinx-serialization-cbor = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-cbor", version.ref = "kotlinx-serialization" }
+#kotlinx-serialization-hocon = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-hocon", version.ref = "kotlinx-serialization" }
+#kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinx-serialization" }
+
+# Kotlinx Coroutines
+## Library support for Kotlin coroutines with multiplatform support
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-jdk8 = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-jdk8", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-slf4j = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-slf4j", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-debug = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-debug", version.ref = "kotlinx-coroutines" }
+
+# Kotlinx Date-Time API
+## A multiplatform Kotlin library for working with date and time.
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version = "0.4.0" }
+
+# Clikt
+## Multiplatform Kotlin Library for writing CLI interfaces
+clikt = { group = "com.github.ajalt.clikt", name = "clikt", version = "3.5.0" }
+
+# Jetbrains Annotations
+## Annotations for documentation and static code analysis
+jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version = "23.0.0" }
+
+# SLF4J
+## Simple Logging Facade for Java
+slf4j = { group = "org.slf4j", name = "slf4j-api", version = "2.0.4" }
+# SLF4K
+## SLF4K is a set of kotlin extensions for SLF4J
+slf4k = { group = "ca.solo-studios", name = "slf4k", version = "0.5.1" }
+# Logback
+## The reliable, generic, fast and flexible logging framework for Java
+logback = { group = "ch.qos.logback", name = "logback-classic", version = "1.4.5" }
+
+# Jetbrains Markdown
+## Markdown parser written in kotlin
+jetbrains-markdown = { group = "org.jetbrains", name = "markdown", version = "0.3.1" }
+
+# DSI Utilities
+## A mishmash of utility classes accumulated during the last twenty years in projects developed at the DSI
+dsi-dsiutils = { group = "it.unimi.dsi", name = "dsiutils", version = "2.7.2" }
+# fastutil
+## fastutil extends the Java Collections Framework by providing type-specific maps, sets, lists and queues
+dsi-fastutil = { group = "it.unimi.dsi", name = "fastutil", version = "8.5.9" }
+
+# Apache Commons
+commons-compress = { group = "org.apache.commons", name = "commons-compress", version = "1.22" }
+commons-io = { group = "org.apache.commons", name = "commons-io", version = "1.3.2" }
+#commons-codec = { group = "org.apache.commons", name = "commons-codec", version = "1.15" }
+commons-codec = { group = "commons-codec", name = "commons-codec", version = "1.15" }
+commons-math = { group = "org.apache.commons", name = "commons-math", version = "3.6.1" }
+# commons-math is being split into:
+# - commons-numbers
+# - commons-geometry
+# - commons-statistics
+# - commons-rng
+commons-lang = { group = "org.apache.commons", name = "commons-lang3", version = "3.12.0" }
+commons-text = { group = "org.apache.commons", name = "commons-text", version = "1.10.0" }
+
+# JUnit
+## Unit testing framework for Java
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit-jupiter" }
+junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit-jupiter" }
+
+
+
+[bundles]
+kotlin-base = ["kotlin-stdlib", "kotlin-stdlib-jdk7", "kotlin-stdlib-jdk8"]
+kotlin-test = ["kotlin-test-base", "kotlin-test-junit5"]
+
+kotlinx-serialization-base = ["kotlinx-serialization-core", "kotlinx-serialization-json"]
+#kotlinx-serialization-full = [
+#    "kotlinx-serialization-core",
+#    "kotlinx-serialization-json",
+#    "kotlinx-serialization-cbor",
+#    "kotlinx-serialization-hocon",
+#    "kotlinx-serialization-protobuf"
+#]
+kotlinx-coroutines-core = ["kotlinx-coroutines-core", "kotlinx-coroutines-jdk8", "kotlinx-coroutines-slf4j"]
+kotlinx-coroutines-debugging = ["kotlinx-coroutines-test", "kotlinx-coroutines-debug"]
+
+junit = ["junit-jupiter-api", "junit-jupiter-engine", "junit-jupiter-params"]
