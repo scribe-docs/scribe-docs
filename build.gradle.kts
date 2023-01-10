@@ -1,38 +1,169 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
-    
     java
-    application
-    distribution
+    signing
+    `maven-publish`
+    `java-library`
     
-    // alias(libs.plugins.axion.release)
+    alias(libs.plugins.kotlin.jvm) //apply false
     
-    alias(libs.plugins.shadow)
+    alias(libs.plugins.dokka)
+    
+    alias(libs.plugins.axion.release)
 }
 
-// scmVersion {
-//     // configure scmVersion here
-// }
-
-// allprojects {
-//     project.version = scmVersion.version
-// }
-
-repositories {
-    mavenCentral()
-    // No jitpack. Jitpack bad.
-    // maven("https://jitpack.io/")
-    // It's down rn because I forgor 💀 to add a systemd service, I'll get it up later lol (tho idk if we even need it)
-    // maven("https://maven.solo-studios.ca/release")
+scmVersion {
+    // configure scmVersion here
 }
 
-dependencies {
-    api(libs.bundles.kotlin.base)
+allprojects {
+    project.version = rootProject.scmVersion.version
     
-    api(libs.bundles.kotlinx.serialization.base)
-    
-    
-    testImplementation(libs.bundles.kotlin.test)
-    testImplementation(libs.bundles.junit)
+    repositories {
+        maven("https://maven.solo-studios.ca/releases")
+        mavenCentral()
+    }
 }
+
+subprojects {
+    apply(plugin = "java")
+    apply(plugin = "signing")
+    apply(plugin = "maven-publish")
+    apply(plugin = "java-library")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.dokka")
+    
+    group = "com.github.scribedocs"
+    
+    repositories {
+        mavenCentral()
+        maven("https://maven.solo-studios.ca/releases")
+    }
+    
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+    
+    kotlin {
+        target.compilations.configureEach {
+            kotlinOptions {
+                jvmTarget = "1.8"
+                apiVersion = "1.8"
+                languageVersion = "1.8"
+            }
+        }
+    }
+    
+    tasks {
+        test {
+            maxParallelForks = (Runtime.getRuntime().availableProcessors() - 1).takeIf { it > 0 } ?: 1
+            
+            useJUnitPlatform()
+        }
+        
+        val dokkaHtml by getting(DokkaTask::class)
+        val javadocJar by getting(Jar::class) {
+            dependsOn(dokkaHtml)
+            archiveClassifier.set("javadoc")
+            from(dokkaHtml.outputDirectory)
+        }
+        val sourcesJar by getting(Jar::class) {
+            archiveClassifier.set("sources")
+            from(sourceSets["main"].allSource)
+        }
+        
+        build {
+            dependsOn(withType<Jar>())
+        }
+    }
+    
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                from(components["java"])
+                
+                version = version.toString()
+                groupId = group.toString()
+                artifactId = "${rootProject.name}-${project.name}"
+                
+                pom {
+                    val projectOrg = "ScribeDocs"
+                    val projectRepo = "ScribeDocs"
+                    val githubBaseUri = "github.com/$projectOrg/$projectRepo"
+                    val githubUrl = "https://$githubBaseUri"
+                    
+                    name.set("Scribe Docs")
+                    description.set("Scribe Docs is a documentation website generator") // TODO better description
+                    url.set(githubUrl)
+                    
+                    inceptionYear.set("2023")
+                    
+                    licenses {
+                        license {
+                            name.set("MIT License")
+                            url.set("https://mit-license.org/")
+                        }
+                    }
+                    
+                    developers {
+                        developer {
+                            id.set("solonovamax")
+                            name.set("solonovamax")
+                            email.set("solonovamax@12oclockpoint.com")
+                            url.set("https://github.com/solonovamax")
+                        }
+                    }
+                    issueManagement {
+                        system.set("GitHub")
+                        url.set("$githubUrl/issues")
+                    }
+                    scm {
+                        connection.set("scm:git:$githubUrl.git")
+                        developerConnection.set("scm:git:ssh://$githubBaseUri.git")
+                        url.set(githubUrl)
+                    }
+                }
+            }
+        }
+    }
+    
+    repositories {
+        // TODO: do we want to publish to maven central (sonatype)
+        //       if so, we need to either
+        //          1. Apply for a group
+        //          2. Use an existing group from a contributor
+        //             (eg. `ca.solo-studios`, or `gay.solonovamax`, both owned by solonovamax)
+        // maven {
+        //     name = "Sonatype"
+        //
+        //     val releasesUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") // releases repo
+        //     val snapshotUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") // snapshot repo
+        //     url = if (isSnapshot) snapshotUrl else releasesUrl
+        //
+        //     credentials(PasswordCredentials::class)
+        // }
+        
+        maven {
+            name = "SoloStudios"
+            
+            val releasesUrl = uri("https://maven.solo-studios.ca/releases/")
+            val snapshotUrl = uri("https://maven.solo-studios.ca/snapshots/")
+            url = if (isSnapshot) snapshotUrl else releasesUrl
+            
+            credentials(PasswordCredentials::class)
+            authentication { // publishing doesn't work without this for some reason (reposilite)
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+    
+    signing {
+        useGpgCmd()
+        sign(publishing.publications)
+    }
+}
+
+val Project.isSnapshot: Boolean
+    get() = version.toString().endsWith("-SNAPSHOT")

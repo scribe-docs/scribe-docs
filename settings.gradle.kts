@@ -8,6 +8,17 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
-rootProject.name = "ScribeDocs"
+rootProject.name = "scribe-docs"
 
-// include("lib")
+pluginManagement {
+    repositories {
+        mavenCentral()
+        maven("https://maven.solo-studios.ca/releases")
+        gradlePluginPortal()
+    }
+}
+
+include(
+        "api",
+        "cli",
+       )
