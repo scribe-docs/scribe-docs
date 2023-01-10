@@ -89,17 +89,17 @@ subprojects {
                 artifactId = "${rootProject.name}-${project.name}"
                 
                 pom {
-                    val projectOrg = "ScribeDocs"
-                    val projectRepo = "ScribeDocs"
+                    val projectOrg = "scribe-docs"
+                    val projectRepo = "scribe-docs"
                     val githubBaseUri = "github.com/$projectOrg/$projectRepo"
                     val githubUrl = "https://$githubBaseUri"
-                    
+    
                     name.set("Scribe Docs")
                     description.set("Scribe Docs is a documentation website generator") // TODO better description
                     url.set(githubUrl)
-                    
+    
                     inceptionYear.set("2023")
-                    
+    
                     licenses {
                         license {
                             name.set("MIT License")
