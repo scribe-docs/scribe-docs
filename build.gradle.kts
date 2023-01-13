@@ -1,4 +1,5 @@
 import org.jetbrains.dokka.gradle.DokkaTask
+import kotlin.math.max
 
 plugins {
     java
@@ -58,11 +59,25 @@ subprojects {
     
     tasks {
         test {
-            maxParallelForks = (Runtime.getRuntime().availableProcessors() - 1).takeIf { it > 0 } ?: 1
-            
+            failFast = false
+            maxParallelForks = max(Runtime.getRuntime().availableProcessors() - 1, 1)
+        
             useJUnitPlatform()
         }
-        
+    
+        withType<Javadoc>().configureEach {
+            options {
+                encoding = "UTF-8"
+            }
+        }
+    
+        withType<Jar>().configureEach {
+            metaInf {
+                from(rootProject.file("LICENSE"))
+            }
+        }
+    
+        val jar by getting(Jar::class)
         val dokkaHtml by getting(DokkaTask::class)
         val javadocJar by getting(Jar::class) {
             dependsOn(dokkaHtml)
@@ -75,6 +90,7 @@ subprojects {
         }
         
         build {
+            dependsOn(jar, javadocJar, sourcesJar)
             dependsOn(withType<Jar>())
         }
     }
