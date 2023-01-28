@@ -33,4 +33,5 @@ buildscript {
 include(
         "api",
         "cli",
+        "frontend",
        )

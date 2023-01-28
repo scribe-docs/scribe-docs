@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "include":           [
+            "src/components",
+            "src/types/imgs.d.ts"
+        ],
+        //        "target":                  "ESNext",
+        //        "useDefineForClassFields": true,
+        //        "module":                  "ESNext",
+        //        "lib":                     [
+        //            "ESNext", "DOM"
+        //        ],
+        "moduleResolution":  "Node",
+        "resolveJsonModule": true,
+        "isolatedModules":   true,
+        "esModuleInterop":   true,
+        "skipLibCheck":      true,
+        
+        //        "strict":                           true,
+        //        "sourceMap":                        true,
+        //        "declaration":                      false,
+        //        "alwaysStrict":                     true,
+        //        "exactOptionalPropertyTypes":       true,
+        //        "noImplicitAny":                    true,
+        //        "noImplicitOverride":               true,
+        //        "noEmit":                           true,
+        //        "noUnusedLocals":                   true,
+        //        "noUnusedParameters":               true,
+        //        "noImplicitReturns":                true,
+        //        "noImplicitThis":                   true,
+        //        "noUncheckedIndexedAccess":         true,
+        //        "strictBindCallApply":              true,
+        //        "strictFunctionTypes":              true,
+        //        "strictNullChecks":                 true,
+        //        "strictPropertyInitialization":     true,
+        //        "useUnknownInCatchVariables":       true,
+        //        "rootDir":                          "src/",
+        //        "importHelpers":                    true,
+        //        "outDir":                           "./build/typescript/",
+        //        "forceConsistentCasingInFileNames": true
+    },
+    "include":         [
+        "src"
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "quality": 85,
+    "jpeg":    {
+        "progressive": true,
+        "mozjpeg":     true
+    },
+    "webp":    {
+        "quality":      100,
+        "nearLossless": true,
+        "effort":       6
+    },
+    "png":     {
+        "progressive":       true,
+        "compressionLevel":  9,
+        "quality":           100,
+        "effort":            10,
+        "adaptiveFiltering": true
+    },
+    "gif":     {
+        "effort": 10
+    },
+    "avif":    {
+        "quality": 90,
+        "effort":  9
+    }
+}

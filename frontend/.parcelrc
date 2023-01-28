@@ -1,0 +1,28 @@
+{
+    "extends":      "@parcel/config-default",
+    "compressors":  {
+        "*.*": [
+            "...",
+            "@parcel/compressor-gzip",
+            "@parcel/compressor-brotli"
+        ]
+    },
+    "transformers": {
+        "*.html": [
+            "@solonovamax/parcel-transformer-google-fonts",
+            "parcel-transformer-html-datasrc",
+            "...",
+        ],
+        "*.scss": [
+            "...",
+        ],
+        //        "*.{ts,tsx}": [
+        //            "@parcel/transformer-typescript-tsc",
+        //            "..."
+        //        ]
+    },
+    "optimizers":   {
+        //        "*.js": [ "@parcel/optimizer-esbuild" ]
+    },
+    "namers":       [ "parcel-namer-rewrite" ]
+}
