@@ -1,24 +1,25 @@
-import com.github.gradle.node.yarn.task.YarnTask
+import com.github.gradle.node.pnpm.task.PnpmTask
 
 plugins {
     base
     distribution
-    id("com.github.node-gradle.node") version "3.2.1"
+    id("com.github.node-gradle.node") version "3.5.1"
 }
 
 node {
-    version.set("16.14.0")
+    version.set("19.5.0")
     download.set(true)
+    pnpmVersion.set("7.26.1")
 }
 
-val parcelDevBuild by tasks.creating(YarnTask::class) {
-    dependsOn(tasks.yarn)
+val parcelDevBuild by tasks.creating(PnpmTask::class) {
+    dependsOn(tasks.pnpmInstall)
     
     args.set(listOf("run", "dev"))
     inputs.dir("src")
     inputs.files(
             "package.json",
-            "package-lock.json",
+            "pnpm-lock.yaml",
             "sharp.config.json",
             "tsconfig.json",
             ".htmlnanorc",
@@ -28,14 +29,14 @@ val parcelDevBuild by tasks.creating(YarnTask::class) {
     outputs.dir("${buildDir}/dev")
 }
 
-val parcelProdBuild by tasks.creating(YarnTask::class) {
-    dependsOn(tasks.yarn)
+val parcelProdBuild by tasks.creating(PnpmTask::class) {
+    dependsOn(tasks.pnpmInstall)
     
     args.set(listOf("run", "build"))
     inputs.dir("src")
     inputs.files(
             "package.json",
-            "package-lock.json",
+            "pnpm-lock.yaml",
             "sharp.config.json",
             "tsconfig.json",
             ".htmlnanorc",
@@ -45,14 +46,14 @@ val parcelProdBuild by tasks.creating(YarnTask::class) {
     outputs.dir("${buildDir}/prod")
 }
 
-val parcelServe by tasks.creating(YarnTask::class) {
-    dependsOn(tasks.yarn)
+val parcelServe by tasks.creating(PnpmTask::class) {
+    dependsOn(tasks.pnpmInstall)
     
     args.set(listOf("run", "serve"))
     inputs.dir("src")
     inputs.files(
             "package.json",
-            "package-lock.json",
+            "pnpm-lock.yaml",
             "sharp.config.json",
             "tsconfig.json",
             ".htmlnanorc",

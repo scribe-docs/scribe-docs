@@ -24,13 +24,14 @@
         "build":    "rimraf build/prod && parcel build --target prod 'src/**/*.html'",
         "buildDev": "rimraf build/dev && parcel build --target dev 'src/**/*.html'"
     },
-    "devDependencies":         {
+    "devDependencies": {
         "@parcel/compressor-brotli":                    "^2.8.3",
         "@parcel/compressor-gzip":                      "^2.8.3",
         "@parcel/optimizer-esbuild":                    "^2.8.3",
         "@parcel/packager-raw-url":                     "^2.8.3",
         "@parcel/transformer-sass":                     "^2.8.3",
         "@parcel/transformer-typescript-tsc":           "^2.8.3",
+        "@parcel/core":                                 "^2.8.3",
         "@solonovamax/parcel-transformer-google-fonts": "^0.1.5",
         "glob":                                         "^8.1.0",
         "parcel":                                       "^2.8.3",
