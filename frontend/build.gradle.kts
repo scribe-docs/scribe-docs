@@ -12,6 +12,10 @@ node {
     pnpmVersion.set("7.26.1")
 }
 
+dependencies {
+    api(project(":api")) // this is just for the intellij thymeleaf plugin
+}
+
 val parcelDevBuild by tasks.creating(PnpmTask::class) {
     dependsOn(tasks.pnpmInstall)
     

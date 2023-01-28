@@ -17,6 +17,9 @@ dependencies {
     api(libs.slf4j)
     implementation(libs.slf4k)
     
+    api(libs.thymeleaf)
+    api(libs.thymeleaf.layout.dialect)
+    
     testImplementation(libs.kotlin.test)
     testImplementation(libs.bundles.junit)
 }

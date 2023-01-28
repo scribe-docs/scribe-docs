@@ -61,22 +61,22 @@ subprojects {
         test {
             failFast = false
             maxParallelForks = max(Runtime.getRuntime().availableProcessors() - 1, 1)
-        
+            
             useJUnitPlatform()
         }
-    
+        
         withType<Javadoc>().configureEach {
             options {
                 encoding = "UTF-8"
             }
         }
-    
+        
         withType<Jar>().configureEach {
             metaInf {
                 from(rootProject.file("LICENSE"))
             }
         }
-    
+        
         val jar by getting(Jar::class)
         val dokkaHtml by getting(DokkaTask::class)
         val javadocJar by getting(Jar::class) {
@@ -109,13 +109,13 @@ subprojects {
                     val projectRepo = "scribe-docs"
                     val githubBaseUri = "github.com/$projectOrg/$projectRepo"
                     val githubUrl = "https://$githubBaseUri"
-    
+                    
                     name.set("Scribe Docs")
                     description.set("Scribe Docs is a documentation website generator") // TODO better description
                     url.set(githubUrl)
-    
+                    
                     inceptionYear.set("2023")
-    
+                    
                     licenses {
                         license {
                             name.set("MIT License")

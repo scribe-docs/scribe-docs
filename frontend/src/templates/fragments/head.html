@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    
+    <!--/*@thymesVar id="page" type="com.github.scribedocs.structure.Page"*/-->
+    <!--/*@thymesVar id="config" type="com.github.scribedocs.config.ScribeConfig"*/-->
+    
+    <!-- Meta Tags -->
+    <head th:fragment="head">
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+        
+        <!-- Page description -->
+        <meta name="description"
+              th:content="${page.meta['description']} ?: ${config.site.description}"
+              th:if="${page.meta['description']} ?: ${config.site.description}"/>
+        
+        <!-- Page author -->
+        <meta name="author"
+              th:content="${page.meta['author']} ?: ${config.site.description}"
+              th:if="${page.meta['author']} ?: ${config.site.description}"/>
+        
+        <!-- Canonical Url -->
+        <link rel="canonical" th:href="${page.canonicalUrl}" th:if="${page.canonicalUrl}"/>
+        
+        <!-- Previous Page -->
+        <!-- TODO -->
+        <!--<link rel="prev" th:href="${page.previousPage}" th:if="${page.previousPage}">-->
+        
+        <!-- Next Page -->
+        <!-- TODO -->
+        <!--<link rel="next" th:href="${page.nextPage}" th:if="${page.nextPage}">-->
+        
+        <!-- Favicon -->
+        <link rel="icon" th:href="${config.theme.favicon}" th:if="${config.theme.favicon}">
+        
+        <!-- Page Title -->
+        <title th:content="|${page.meta['title']} - ${config.site.name}|" th:if="${page.meta['title']} != null"></title>
+        <title th:content="|${page.title} - ${config.site.name}|" th:if="!${page.isHomePage}" th:unless="${page.meta['title']}"></title>
+        <title th:content="${config.site.name}" th:if="${page.isHomePage}" th:unless="${page.meta['title']}"></title>
+    </head>
+</html>
