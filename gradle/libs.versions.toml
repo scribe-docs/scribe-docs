@@ -17,6 +17,7 @@ axion-release = { id = "pl.allegro.tech.build.axion-release", version = "1.14.3"
 
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 
+node-gradle = { id = "com.github.node-gradle.node", version = "3.5.1" }
 
 [libraries]
 

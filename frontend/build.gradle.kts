@@ -3,7 +3,7 @@ import com.github.gradle.node.pnpm.task.PnpmTask
 plugins {
     base
     distribution
-    id("com.github.node-gradle.node") version "3.5.1"
+    alias(libs.plugins.node.gradle)
 }
 
 node {
